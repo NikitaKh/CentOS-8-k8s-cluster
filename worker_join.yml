@@ -1,0 +1,7 @@
+---
+
+- name: Setup worker node
+  hosts: [worker]
+  become: true
+  roles:
+    - worker_init

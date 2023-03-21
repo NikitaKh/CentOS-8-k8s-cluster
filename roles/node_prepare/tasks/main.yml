@@ -1,0 +1,6 @@
+---
+
+- include: node_update.yml
+- include: firewall_setup.yml
+- include: docker_install.yml
+- include: k8s_install.yml

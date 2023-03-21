@@ -1,0 +1,7 @@
+---
+
+- name: prepare nodes
+  hosts: [basic, custom]
+  become: true
+  roles:
+    - default_node_preinstall

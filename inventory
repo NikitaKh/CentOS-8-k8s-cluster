@@ -1,0 +1,15 @@
+# Master Node Log / Pass
+[master:vars]
+ansible_user=
+ansible_ssh_pass=
+
+# Worker Node Log / Pass
+[worker:vars]
+ansible_user=
+ansible_ssh_pass=
+
+# Mastet Node Ip
+[master]
+
+# Worker Nodes Ip`s
+[worker]

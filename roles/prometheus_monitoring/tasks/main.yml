@@ -1,0 +1,3 @@
+---
+
+- include: monitoring_init.yaml

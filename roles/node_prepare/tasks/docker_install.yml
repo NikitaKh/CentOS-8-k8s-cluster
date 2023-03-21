@@ -1,0 +1,71 @@
+---
+
+- name: Remove old docker rpm
+  yum:
+    name: "{{ item }}"
+    state: absent
+  loop:
+    - "docker"
+    - "docker-client"
+    - "docker-client-latest"
+    - "docker-common"
+    - "docker-latest"
+    - "docker-latest-logrotate"
+    - "docker-logrotate"
+    - "docker-selinux"
+    - "docker-engine-selinux"
+    - "docker-engine"
+    - 'docker-ce'
+    - 'docker-ce-cli'
+    - 'containerd.io'
+    - 'docker-buildx-plugin'
+    - 'docker-compose-plugin'
+
+- name: yum install yum-utils
+  yum:
+    name: "yum-utils"
+    allowerasing: "true"
+    disable_gpg_check: "true"
+
+- name: yum add docker repo
+  shell: "yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo"
+
+- name: yum install docker
+  yum:
+    name: "{{ packages }}"
+    allowerasing: "true"
+    disable_gpg_check: "true"
+  vars:
+    packages:
+    - 'docker-ce'
+    - 'docker-ce-cli'
+    - 'containerd.io'
+    - 'docker-buildx-plugin'
+    - 'docker-compose-plugin'
+
+- name: enable docker
+  command:
+    cmd: "{{ item }}"
+  loop:
+    - "systemctl enable docker"
+  
+- name: Pause for 30 sec to enable docker
+  pause:
+    seconds: 30
+
+- name: start docker
+  command:
+    cmd: "{{ item }}"
+  loop:
+    - "systemctl start docker"
+
+- name: Check docker status
+  command:
+    cmd: "{{ item }}"
+  loop:
+    - "systemctl status docker"
+    - "docker version"
+
+- name: Add user to docker group
+  command:
+    cmd: "usermod -aG docker $USER"

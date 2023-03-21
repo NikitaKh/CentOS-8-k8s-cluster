@@ -1,0 +1,34 @@
+---
+
+- name: K8s init
+  command:
+    cmd: "{{ item }}"
+  loop:
+    # - "kubeadm init --kubernetes-version=v1.23.5"
+    - "kubeadm init"
+
+- name: Enable master access
+  shell:
+    cmd: "{{ item }}"
+  loop:
+    - "mkdir -p $HOME/.kube"
+    - "sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config"
+    - "sudo chown $(id -u):$(id -g) $HOME/.kube/config"
+
+- name: Copy calico manifest
+  copy:
+    src: "calico.yaml"
+    dest: "/tmp/calico.yaml"
+
+- name: Calico Deploy
+  shell:
+    cmd: "{{ item }}"
+    chdir: "/tmp"
+  loop:
+    - "kubectl apply -f calico.yaml"
+
+- name: Create join token
+  shell:
+    cmd: "{{ item }}"
+  loop:
+    - "kubeadm token create --print-join-command"

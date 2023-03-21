@@ -1,0 +1,11 @@
+---
+
+- name: Copy monitoring yaml
+  copy:
+    src: "monitoring.yaml"
+    dest: "/tmp/monitoring.yaml"
+
+- name: Apply monitoring.yaml
+  shell:
+    cmd: "kubectl apply -f monitoring.yaml"
+    chdir: "/tmp"

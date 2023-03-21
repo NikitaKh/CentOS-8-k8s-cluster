@@ -1,0 +1,7 @@
+---
+
+- name: Setup k8s master node
+  hosts: [master]
+  become: true
+  roles:
+    - master_init

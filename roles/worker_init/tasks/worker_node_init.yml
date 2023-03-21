@@ -1,0 +1,7 @@
+---
+
+- name: Подключение worker node
+  shell:
+    cmd: "{{ item }}"
+  loop:
+    - "{{ TOKEN }}"

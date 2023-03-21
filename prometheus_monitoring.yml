@@ -1,0 +1,7 @@
+---
+
+- name: Setup k8s monitoring
+  hosts: [master]
+  become: true
+  roles:
+    - prometheus_monitoring

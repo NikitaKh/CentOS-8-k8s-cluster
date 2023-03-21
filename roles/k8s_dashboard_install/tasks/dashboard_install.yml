@@ -1,0 +1,17 @@
+---
+
+- name: Copy dashboard.yaml
+  copy:
+    src: "dashboard.yaml"
+    dest: /tmp/dashboard.yaml
+    follow: yes
+    force: true
+
+- name: Apply dashboard.yaml
+  shell:
+    cmd: "kubectl apply -f dashboard.yaml"
+    chdir: '/tmp'
+
+- name: Get secret access
+  shell:
+    cmd: "kubectl -n kubernetes-dashboard describe secret $(kubectl -n kubernetes-dashboard get secret | grep admin-user | awk '{print $1}')"

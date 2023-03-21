@@ -1,0 +1,7 @@
+---
+
+- name: Install K8s Dashboard
+  hosts: [master]
+  become: true
+  roles:
+    - k8s_dashboard_install
