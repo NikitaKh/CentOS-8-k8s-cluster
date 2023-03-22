@@ -11,25 +11,23 @@
 В файле inventory укажите адреса мастера и воркер нод и данные для подключения по ssh. У пользователя должны быть root права.
 
 #### Обновление нод
-Для обновления нод необходим плейбук node_prepare.yml
-Команда для запуска: ansible-playbook -i hosts -vbc paramiko node_prepare.yml
+1. Для обновления нод необходим плейбук node_prepare.yml. 
+2. Команда для запуска: ansible-playbook -i hosts -vbc paramiko node_prepare.yml
 
 #### Подготовка мастер ноды
-Для инициализации мастера необходим плейбук master_init.yml
-Команда для запуска: ansible-playbook -i hosts -vbc paramiko master_init.yml
-
-По итогу выполнения плейбука будет выведена информация типа kubeadm join ....
-Необходимо скопировать эту команду, она понадобится для следующего шага.
+1. Для инициализации мастера необходим плейбук master_init.yml
+2. Команда для запуска: ansible-playbook -i hosts -vbc paramiko master_init.yml
+3. По итогу выполнения плейбука будет выведена информация типа kubeadm join .... Необходимо скопировать эту команду, она понадобится для следующего шага.
 
 #### Подготовка воркер нод
 1. Команду kubeadm join ... из предыдущего пункта копируем в CentOS-8-k8s-cluster/roles/worker_init/defaults/main.yml в переменную TOKEN
 2. Команда для запуска: ansible-playbook -i hosts -vbc paramiko worker_join.yml
 
 #### Установка K8s Dashboard
-Необходим плейбук k8s_dashboard.yml
-Команда для запуска: ansible-playbook -i hosts -vbc paramiko k8s_dashboard.yml
-Для получения токена для доступа в ui и адреса по которому будет доступен ui нужно вызвать скрипт: CentOS-8-k8s-cluster/roles/k8s_dashboard_install/files/get-dashboard-info.sh
+1. Необходим плейбук k8s_dashboard.yml
+2. Команда для запуска: ansible-playbook -i hosts -vbc paramiko k8s_dashboard.yml
+3. Для получения токена для доступа в ui и адреса по которому будет доступен ui нужно вызвать скрипт: CentOS-8-k8s-cluster/roles/k8s_dashboard_install/files/get-dashboard-info.sh
 
 #### Установка Prometheus Monitoring
-Необходим плейбук prometheus_monitoring.yml
-Команда для запуска: ansible-playbook -i hosts -vbc paramiko prometheus_monitoring.yml
+1. Необходим плейбук prometheus_monitoring.yml
+2. Команда для запуска: ansible-playbook -i hosts -vbc paramiko prometheus_monitoring.yml
